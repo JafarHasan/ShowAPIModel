@@ -1,0 +1,17 @@
+#spring.application.name=ShowAPI
+spring:
+  datasource:
+    username: root
+    password: dewancollege@123
+    url: jdbc:mysql://localhost:3306/movieDB
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
+
+
+project:
+  poster: posters/
