@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class MovieServiceImpl implements MovieService{
@@ -53,6 +54,7 @@ public class MovieServiceImpl implements MovieService{
 
         //5 generate the poster url -we need complete URL
         String posterUrl=baseUrl+"/file/"+uploadedFileName;
+
         //map movie obj to DTO obj using allArgsConstructor
         MovieDto response=new MovieDto(
                 savedMovie.getMovieId(),
@@ -69,11 +71,50 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public MovieDto getMovie(Integer movieId) {
-        return null;
+        //1 check movie exists or not in DB if yes fetch data from given movieId
+        Movie movie=movieRepository.findById(movieId).orElseThrow(()->new RuntimeException("movie not found"));
+
+        //2 generate poster URL
+        String posterUrl=baseUrl+"/file/"+movie.getPoster();
+
+        //3 map to movieDto obj and return
+        MovieDto response=new MovieDto(
+                movie.getMovieId(),
+                movie.getTitle(),
+                movie.getDirector(),
+                movie.getStudio(),
+                movie.getMovieCast(),
+                movie.getReleaseYear(),
+                movie.getPoster(),
+                posterUrl
+        );
+
+        return response;
     }
 
     @Override
     public List<MovieDto> getAllMovies() {
-        return List.of();
+        List<MovieDto> movieDtos=new ArrayList<>();
+        //fetch all data from DB
+        List<Movie> movies=movieRepository.findAll();
+
+        // iterate list and generate poster url of each movie obj ans map to movieDto obj
+        for(Movie movie:movies){
+            //generate poster URL
+            String posterUrl=baseUrl+"/file/"+movie.getPoster();
+
+            MovieDto movieDto=new MovieDto(
+                    movie.getMovieId(),
+                    movie.getTitle(),
+                    movie.getDirector(),
+                    movie.getStudio(),
+                    movie.getMovieCast(),
+                    movie.getReleaseYear(),
+                    movie.getPoster(),
+                    posterUrl
+            );
+            movieDtos.add(movieDto);
+        }
+        return movieDtos;
     }
 }
