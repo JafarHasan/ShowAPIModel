@@ -2,6 +2,7 @@ package com.ShowAPIs.ShowAPI.DTO;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class MovieDto {
 
+
+    private Integer movieId;
 
     //These are validations using @NotBlank
     @NotBlank(message = "please provide movie's title") //from validation dependency

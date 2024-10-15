@@ -1,8 +1,16 @@
 package com.ShowAPIs.ShowAPI.Service;
 
-import org.springframework.stereotype.Service;
+import com.ShowAPIs.ShowAPI.DTO.MovieDto;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service
-public class MovieService {
+import java.io.IOException;
+import java.util.List;
 
+public interface MovieService {
+
+    MovieDto addMovie(MovieDto movieDto, MultipartFile file) throws IOException;
+
+    MovieDto getMovie(Integer movieId);
+
+    List<MovieDto> getAllMovies();
 }
