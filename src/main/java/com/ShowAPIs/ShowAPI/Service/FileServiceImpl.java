@@ -23,7 +23,7 @@ public class FileServiceImpl implements FileService{
             f.mkdir();
         }
         //copy the file
-        Files.copy(file.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(file.getInputStream(), Paths.get(filePath));
         return fileName;
     }
 
@@ -32,4 +32,6 @@ public class FileServiceImpl implements FileService{
         String filePath=path+ File.separator+fileName;
         return new FileInputStream(filePath);
     }
+
+
 }
